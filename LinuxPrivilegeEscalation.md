@@ -262,26 +262,28 @@ smmsp:!!:18785::::::
 nscd:!!:18785::::::
 missy:$6$BjOlWE21$HwuDvV1iSiySCNpA3Z9LxkxQEqUAdZvObTxJxMoCp/9zRVCi6/zrlMlAQPAxfwaD2JCUypk4HaNzI3rPVqKHb/:18785:0:99999:7:::
 ```
-    - Attempted to use John
-        - Could only crack 2 out of the 3 passwords since the root password isn't in the wordlist
-    - When using Hashcat
-        - Make sure to use --wordlist="Path to wordlist"
-        - But this method takes forever 
-    - When using Hashcat    
-        - You def use the GPU 
-        - Command used : hashcat -m 1800 hash.txt rockyou.txt
-        - Once hashcat is done, use the following command to display cracked hashes
-            - Command : hashcat --show -m 1800 hash.txt
-            - Output 
-            ```bash 
-            digital101@Digital101:~$ hashcat --show -m 1800 hash.txt
-            $6$JELumeiiJFPMFj3X$OXKY.N8LDHHTtF5Q/pTCsWbZtO6SfAzEQ6UkeFJy.Kx5C9rXFuPr.8n3v7TbZEttkGKCVj50KavJNAm7ZjRi4/:Penny123
-            $6$BjOlWE21$HwuDvV1iSiySCNpA3Z9LxkxQEqUAdZvObTxJxMoCp/9zRVCi6/zrlMlAQPAxfwaD2JCUypk4HaNzI3rPVqKHb/:Password1
-            ```
-        - Hashcat stores results to a potfile by default
-            - Command : hashcat --show --potfile-path ~/.hashcat/hashcat.potfile -m 1800 hash.txt
-            - To view all previously cracked passwords 
-                - Command : cat ~/.hashcat/hashcat.potfile
+---
+
+- Attempted to use John
+  - Could only crack 2 out of the 3 passwords since the root password isn't in the wordlist
+- When using Hashcat
+  - Make sure to use --wordlist="Path to wordlist"
+  - But this method takes forever 
+- When using Hashcat    
+  - You def use the GPU 
+  - Command used : hashcat -m 1800 hash.txt rockyou.txt
+  - Once hashcat is done, use the following command to display cracked hashes
+    - Command : hashcat --show -m 1800 hash.txt
+    - Output 
+    ```bash 
+        digital101@Digital101:~$ hashcat --show -m 1800 hash.txt
+        $6$JELumeiiJFPMFj3X$OXKY.N8LDHHTtF5Q/pTCsWbZtO6SfAzEQ6UkeFJy.Kx5C9rXFuPr.8n3v7TbZEttkGKCVj50KavJNAm7ZjRi4/:Penny123
+        $6$BjOlWE21$HwuDvV1iSiySCNpA3Z9LxkxQEqUAdZvObTxJxMoCp/9zRVCi6/zrlMlAQPAxfwaD2JCUypk4HaNzI3rPVqKHb/:Password1
+    ```
+    - Hashcat stores results to a potfile by default
+      - Command : hashcat --show --potfile-path ~/.hashcat/hashcat.potfile -m 1800 hash.txt
+      - To view all previously cracked passwords 
+        - Command : cat ~/.hashcat/hashcat.potfile
 #### Cracked Password Hash Format
 ```bash
 # Cracked line from Hashcat 
@@ -290,18 +292,18 @@ $6$BjOlWE21$HwuDvV1iSiySCNpA3Z9LxkxQEqUAdZvObTxJxMoCp/9zRVCi6/zrlMlAQPAxfwaD2JCU
 [hashed_password]:[plaintext_password]
 ```
 #### ID'ing hash prefixes
-| Prefix (starts with) | Hash Type | Algorithm Used |
-| --- | --- | --- |
-| `$1$` | MD5 | md5crypt |
-| `$2a$`, `$2b$`, `$2y$` | Blowfish | bcrypt |
-| `$5$` | SHA-256 | sha256crypt |
-| `$6$` | SHA-512 | sha512crypt |
-| `no prefix` | DES | Legacy (insecure) |
+| Prefix (starts with)   | Hash Type | Algorithm Used    |
+| ---------------------- | --------- | ----------------- |
+| `$1$`                  | MD5       | md5crypt          |
+| `$2a$`, `$2b$`, `$2y$` | Blowfish  | bcrypt            |
+| `$5$`                  | SHA-256   | sha256crypt       |
+| `$6$`                  | SHA-512   | sha512crypt       |
+| `no prefix`            | DES       | Legacy (insecure) |
 
-- Example :root:$6$DWBzMoiprTTJ4gbW$g0szmtfn3HYFQweUPpSUCgHXZLzVii5o6PM0Q2oMmaDD9oGUSxe1yvKbnYsaSYHrUEQXTjIwOW/yrzV5HtIL51::0:99999:7:::
-    - The $^$ means it's SHA-512 
-    - DWBzMoiprTTJ4gbW is the saltThe
-    - The long string after that is the hashed password
+- Example : `root:$6$DWBzMoiprTTJ4gbW$g0szmtfn3HYFQweUPpSUCgHXZLzVii5o6PM0Q2oMmaDD9oGUSxe1yvKbnYsaSYHrUEQXTjIwOW/yrzV5HtIL51::0:99999:7:::`
+    - The `$6$` means it's `SHA-512` 
+    - `DWBzMoiprTTJ4gbW` is the `salt`
+    - The long string after that is the `hashed password`
 - Or you could use
     - hash-identifier 
     - sudo apt install hash-identifier
